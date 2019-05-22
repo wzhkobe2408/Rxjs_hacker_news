@@ -1,0 +1,72 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    min-width: 400px;
+    width: 80%;
+    margin: auto;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    margin: 10px 0;
+}
+
+.button-group > span {
+    margin-right: 20px;
+}
+
+.button-group > button {
+    padding: 10px;
+    border: none;
+    background-color: #303030;
+    color: #ffffff;
+    cursor: pointer;
+    outline: none;
+}
+
+.button-group > button:active {
+    background-color: #555555;
+}
+
+.button-group > button:not(:last-child) {
+    margin-right: 10px;
+}
+
+h1 {
+    padding: 10px 0;
+    margin: 0;
+    background: #292929;
+    color: #f4f4f4;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+ul > li {
+    list-style: none;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+}
+
+li a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #ffb428;
+}
+
+.loading-hint {
+    text-align: center;
+}
