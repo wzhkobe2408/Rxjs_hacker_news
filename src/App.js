@@ -100,7 +100,7 @@ const queryForFetch$ = query$.pipe(
 
 const fetch$ = combineLatest(subject$ , page$, queryForFetch$).pipe(
   flatMap(([subject, page, query]) =>
-    axios(`http://hn.algolia.com/api/v1/${subject}?query=${query}&page=${page}`),
+    axios(`https://hn.algolia.com/api/v1/${subject}?query=${query}&page=${page}`),
   ),
   map(result => {
     console.log('result', result);
