@@ -11,9 +11,9 @@ export default (observable, triggers, initialState) => Component => {
     }
 
     componentDidMount() {
-      this.subscription = observable.subscribe(newState =>
-        this.setState({ ...newState }),
-      );
+      this.subscription = observable.subscribe(newState => {
+        this.setState({ ...newState });
+      });
     }
 
     componentWillUnmount() {

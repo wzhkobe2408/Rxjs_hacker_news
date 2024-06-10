@@ -48,15 +48,21 @@ const App = ({
           <>
             <ul>
               {stories.map(story => (
-                <li key={story.objectID}>
-                  <a href={story.url || story.story_url}>
+                <li
+                  key={story.objectID}
+                  onClick={() => {
+                    const win = new Window();
+                    win.open(story.url || story.story_url);
+                  }}
+                >
+                  <div className="title">
                     {story.title || story.story_title}
-                  </a>
+                  </div>
                   <div>
                     author: { story.author || 'unknow' }
                   </div>
                   <div>
-                    createdAt: { story.created_at }
+                    createdAt: { new Date(story.created_at_i * 1000).toLocaleDateString() }
                   </div>
                   <div>
                     comments: { story.num_comments || 0 }
@@ -67,14 +73,19 @@ const App = ({
 
             <div className="button-group">
               <button
+                onClick={() => {
+                  if (page > 0) {
+                    onChangePage(page - 1)
+                  }
+                }}
+                disabled={page <= 0}
+              >
+                Prev Page
+              </button>
+              <button
                 onClick={() => onChangePage(page + 1)}
               >
                 Next Page
-              </button>
-              <button
-                onClick={() => onChangePage(page - 1)}
-              >
-                Prev Page
               </button>
             </div>
           </>
@@ -88,7 +99,7 @@ const App = ({
 );
 
 const query$ = new BehaviorSubject('react');
-const subject$ = new BehaviorSubject(SUBJECT.POPULARITY);
+const subject$ = new BehaviorSubject(SUBJECT.DATE);
 const page$ = new BehaviorSubject(0).pipe(
   filter((page) => page >= 0),
 );
@@ -103,8 +114,6 @@ const fetch$ = combineLatest(subject$ , page$, queryForFetch$).pipe(
     axios(`https://hn.algolia.com/api/v1/${subject}?query=${query}&page=${page}`),
   ),
   map(result => {
-    console.log('result', result);
-
     return result.data.hits;
   }),
 );
@@ -128,7 +137,15 @@ export default withObservableStream(
     onSelectSubject: subject => subject$.next(subject),
     // query observable trigger
     onChangeQuery: value => query$.next(value),
-    onChangePage: page => page$.next(page),
+    onChangePage: page => {
+      window.scrollTo({
+        left: 0,
+        top: 0,
+        // behavior: 'smooth'
+      });
+
+      return page$.next(page);
+    },
   },
   {
     // init state
