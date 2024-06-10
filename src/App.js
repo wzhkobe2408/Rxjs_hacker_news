@@ -51,8 +51,7 @@ const App = ({
                 <li
                   key={story.objectID}
                   onClick={() => {
-                    const win = new Window();
-                    win.open(story.url || story.story_url);
+                    window.open(story.url || story.story_url);
                   }}
                 >
                   <div className="title">
